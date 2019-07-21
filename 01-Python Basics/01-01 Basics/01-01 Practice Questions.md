@@ -12,11 +12,11 @@ string = 'spam'
 3. Data Types = string, list, dictionary, tuple  
 
 4. Expressions are made of... varibles and values?  
-X  
+XXX  
 Expressions are combinations of values and operators
 
 5. No idea  
-X  
+XXX  
 Expression evaluates to a single value, a statement does not
 
 6. 20
