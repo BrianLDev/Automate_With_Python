@@ -4,7 +4,7 @@
 ### What is this repo for?
 I'm using this repo to track my progress through the book examples and practice questions
 
-![](https://images-na.ssl-images-amazon.com/images/I/51o-3Nx9bBL._SX376_BO1,204,203,200_.jpg)
+![](https://nostarch.com/sites/default/files/styles/uc_product/public/AutomatetheBoringStuff_cover.png?itok=fh9CKZdn)
 
 [Link to Automate the Boring Stuff - ebook site with download of files used in book](https://nostarch.com/automatestuff/)  
 [Link to Automate the Boring Stuff - buy on Amazon.com](https://www.amazon.com/dp/B00WJ049VU)  
