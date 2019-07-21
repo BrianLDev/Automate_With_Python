@@ -1,10 +1,13 @@
-# Automate the Boring Stuff with Python
-## Challenges and Practice Questions
+# Automate the Boring Stuff with Python - Challenges and Practice Questions
 
+
+### What is this repo for?
 I'm using this repo to track my progress through the book examples and practice questions
 
+![](https://images-na.ssl-images-amazon.com/images/I/51o-3Nx9bBL._SX376_BO1,204,203,200_.jpg)
+
 [Link to Automate the Boring Stuff - ebook site with download of files used in book](https://nostarch.com/automatestuff/)  
-[Link to Auatomate the Boring Stuff - buy on Amazon.com](https://www.amazon.com/dp/B00WJ049VU)  
+[Link to Automate the Boring Stuff - buy on Amazon.com](https://www.amazon.com/dp/B00WJ049VU)  
 
 ### Book Synopsis:  
 If you’ve ever spent hours renaming files or updating hundreds of spreadsheet cells, you know how tedious tasks like these can be. But what if you could have your computer do them for you?
