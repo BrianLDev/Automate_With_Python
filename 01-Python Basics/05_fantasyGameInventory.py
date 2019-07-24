@@ -16,7 +16,9 @@ displayInventory(inventory)
 # 2nd Challenge - create a fuction that lets you add items to the dictionary inventory.  But the added items are in list format.
 
 def addToInventory(inventory, addedItems):
+    print("\n** PICKED UP LOOT **")
     for item in addedItems:
+        print("Adding " + str(item) + " to inventory.")
         inventory.setdefault(item, 0)
         inventory[item] += 1    # works both ways
         #inventory[item] = inventory[item] + 1  # works both ways
