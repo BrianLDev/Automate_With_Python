@@ -16,7 +16,6 @@ def printPicnic(itemsDict, leftWidth=0, rightWidth=0):
 
 picnicItems = {'sandwiches': 4, 'apples': 12, 'cups': 4, 'cookies': 8000}
 printPicnic(picnicItems, 12, 5)
-printPicnic(picnicItems)
 
 picnicItems = {'tacos': 3, 'cup': 2, 'blanket': 1, 'bottle of wine': 1, 'fancy wine glasses': 2}
 printPicnic(picnicItems, 12, 5)
