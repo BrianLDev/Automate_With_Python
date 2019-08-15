@@ -40,7 +40,12 @@ print("Done")
 
 ## REGEX VERSION
 import re
+# without using the r for raw
+# phoneNumRegex = re.compile('\\d\\d\\d-\\d\\d\\d-\\d\\d\\d\\d')
+# with using the r for raw
 phoneNumRegex = re.compile( r'\d\d\d-\d\d\d-\d\d\d\d')
+# match object (mo) tries to find a phone number in the text
 mo = phoneNumRegex.search(' My number is 415-555-4242.')
+
 print('Phone number found: ' + mo.group() )
 
