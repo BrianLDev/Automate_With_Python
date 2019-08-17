@@ -128,9 +128,13 @@ print(noNewlineRegex.search('Serve the public trust.\nProtect the innocent.\nUph
 print('*')
 newlineRegex = re.compile('.*', re.DOTALL)
 print(newlineRegex.search('Serve the public trust.\nProtect the innocent.\nUphold the law.').group() )
+print('*************')
 
-"""
-Review of Regex Symbols This chapter covered a lot of notation, so here’s a quick review of what you learned: 
+
+# Review of Regex Symbols
+print("""
+Review of Regex Symbols  
+This chapter covered a lot of notation, so here’s a quick review of what you learned: 
 - The ? matches zero or one of the preceding group. 
 - The * matches zero or more of the preceding group. 
 - The + matches one or more of the preceding group. 
@@ -145,6 +149,25 @@ Review of Regex Symbols This chapter covered a lot of notation, so here’s a qu
 - \D, \W, and \S match anything except a digit, word, or space character, respectively. 
 - [abc] matches any character between the brackets (such as a, b, or c). 
 - [^abc] matches any character that isn’t between the brackets.
-"""
+""")
+print('*************')
+
 
 # Case Insensitive Matching
+robocop = re.compile( r'robocop', re.I)  # the re.I 2nd argument makes this regex case insensitive
+print(robocop.search('RoboCop is part man, part machine, all cop.').group() )
+print(robocop.search('ROBOCOP protects the innocent.'). group() )
+print(robocop.search('Al, why does your programming book talk about robocop so much?'). group() )
+print('*************')
+
+
+# Substituting Strings with the sub() method
+namesRegex = re.compile(r'Agent \w+')
+print("Agent Alice gave the secret documents to Agent Bob.")
+print(namesRegex.sub('REDACTED', "Agent Alice gave the secret documents to Agent Bob."))
+agentNamesRegex = re.compile(r'Agent (\w)\w*')
+print("Agent Eve told Agent Carol that Agent Eve knew Agent Bob was a double agent.")
+print(agentNamesRegex.sub(r'\1****', "Agent Eve told Agent Carol that Agent Eve knew Agent Bob was a double agent."))
+
+
+# Managing Complex Regexes
