@@ -22,7 +22,7 @@ emailRegex = re.compile(r'''(
     )''', re.VERBOSE)
  
 # Find matches in clipboard text
-text = str(pyperclip.pasate())
+text = str(pyperclip.paste())
 matches = []
 for groups in phoneRegex.findall(text):
     phoneNum = '-'.join([groups[1], groups[3], groups[5]])
@@ -32,6 +32,10 @@ for groups in phoneRegex.findall(text):
 for groups in emailRegex.findall(text):
     matches.append(groups[0])
  
-# TODO: Copy results to the clipboard.
-
-
+# Copy results to the clipboard.
+if len(matches) > 0:
+    pyperclip.copy('\n'.join(matches))
+    print('Copied to clipboard:')
+    print('\n'.join(matches))
+else:
+    print('No phone numbers or email addresses found.')
