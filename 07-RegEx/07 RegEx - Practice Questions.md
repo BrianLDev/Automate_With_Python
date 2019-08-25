@@ -54,4 +54,4 @@ re.compile(r'^\d{1,3}(,\d{3})*$')
 22. re.compile(r'(Alice|Bob|Carol)\s(eats|pets|throws)\s(apples|cats|baseballs)\.', re.IGNORECASE)
 
 #### SCORE:  
-18.5/22 = 100%
+18.5/22 = 84%
