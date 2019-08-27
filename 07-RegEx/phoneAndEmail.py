@@ -39,3 +39,10 @@ if len(matches) > 0:
     print('\n'.join(matches))
 else:
     print('No phone numbers or email addresses found.')
+
+"""
+Use this link to test out the phone and email extractor
+https://nostarch.com/contactus
+Ctrl+A to select all, then Ctrl+C to copy, then run the program
+Then when you paste the clipboard, it will only have the phone numbers and email addresses
+"""
