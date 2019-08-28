@@ -5,15 +5,26 @@
 import re
 
 upperRegex = re.compile(r'[A-Z]+')
-lowerRegex = re.compile(r'[a-z]*')
-digitRegex = re.compile(r'\d*')
+lowerRegex = re.compile(r'[a-z]+')
+digitRegex = re.compile(r'\d+')
 
 print("\nEnter a password that you want to test to see if it is strong: ")
 password = input()
 
 lenChk = len(password) >= 8
-upperChk = upperRegex.search(password)
-lowerChk = lowerRegex.search(password)
-digitChk = digitRegex.search(password)
+upperChk = upperRegex.search(password) != None
+lowerChk = lowerRegex.search(password) != None
+digitChk = digitRegex.search(password) != None
 
-print(str(lenChk) + str(len(upperChk)>0) + str(lowerChk) + str(digitChk))
+if lenChk and upperChk and lowerChk and digitChk:
+    print("\nStrong Password!\n")
+else:
+    print("\nNot so Strong...")
+if not lenChk:
+    print("   *** Must be 8+ characters ***")
+if not upperChk:
+    print("   *** Must have at least 1 capital letter ***")
+if not lowerChk:
+    print("   *** Must have at least 1 lowercase letter ***")
+if not digitChk:
+    print("   *** Must have at least 1 digit ***")
