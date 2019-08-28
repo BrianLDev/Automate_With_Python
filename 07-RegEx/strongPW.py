@@ -28,3 +28,8 @@ if not lowerChk:
     print("   *** Must have at least 1 lowercase letter ***")
 if not digitChk:
     print("   *** Must have at least 1 digit ***")
+
+# Trying out Kyle from SPAR's code
+KyleRegex = re.compile(r'^[A-Za-z0-9]{8}$')
+KyleResult = KyleRegex.search(password) != None
+print("\nKyle Regex Test = " + str(KyleResult) + "\n")
