@@ -1,7 +1,7 @@
 # II - Automating Tasks
-## 07 - Regular Expressions (RegEx)
+# 07 - Regular Expressions (RegEx)
 
-#### Book Examples from Chapter
+# Book Examples from Chapter
 
 """
 Goes through all the various examples and use cases of regex from the book
