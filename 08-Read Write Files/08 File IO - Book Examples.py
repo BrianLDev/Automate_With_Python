@@ -35,20 +35,21 @@ print("*************\n")
 
 # Directory (dir) name vs base name
 print("Directory (dir) name vs base name".upper() )
-CalcPath = "C:\Windows\System32\calc.exe"
-print(os.path.basename(CalcPath) ) # basename = filename = "calc.exe"
-print(os.path.dirname(CalcPath) ) # dirname = directory name = "C:\Windows\System32"
-print(os.path.split(CalcPath) ) # split has both the dirname and basename together as a tuple
-print(os.path.dirname(CalcPath),  os.path.basename(CalcPath) )
+calcPath = "C:\Windows\System32\calc.exe"
+print(os.path.basename(calcPath) ) # basename = filename = "calc.exe"
+print(os.path.dirname(calcPath) ) # dirname = directory name = "C:\Windows\System32"
+print(os.path.split(calcPath) ) # split has both the dirname and basename together as a tuple
+print(os.path.dirname(calcPath),  os.path.basename(calcPath) )
 print(os.path.split(os.path.sep) )
 print("*************\n")
 
 # Finding File Sizes and Folder Contents
-print("")
-print(os.path.getsize(os.path.dirname(CalcPath))) )
-print(os.listdir(os.path.dirname(CalcPath)) )
+print("Finding File Sizes and Folder Contents".upper() )
+print(os.path.getsize(calcPath) )
+calcDirPath = os.path.dirname(calcPath)
+print(os.listdir(calcDirPath)[:20] )    # print the first 20 folders in C:\Windows\System32
 print("Get the total size of all the files in the Windows System32 Directory:")
 totalSize = 0
-for filename in os.listdir(os.path.dirname(CalcPath))):
-    totalSize = totalSize = os.path.getsize(os.path.join(os.path.dirname(CalcPath)), filename))
+for filename in os.listdir(calcDirPath):
+    totalSize = totalSize + os.path.getsize(os.path.join(calcDirPath, filename))
 print(totalSize)
