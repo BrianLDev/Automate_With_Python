@@ -88,21 +88,20 @@ def scrapeListingData(links):
         listingDataTemp['Type'] = listingDetailsValues[0].text
         listingDataTemp['Foundation'] = listingDetailsValues[1].text
         listingDataTemp['Delivery'] = listingDetailsValues[2].text
-        # listingDataTemp[''] = 
-        # listingDataTemp[''] = 
-        # listingDataTemp[''] = 
-        # listingDataTemp[''] = 
-        # listingDataTemp[''] = 
-        # listingDataTemp[''] = 
-        # listingDataTemp[''] = 
-        # listingDataTemp[''] = 
-        # listingDataTemp[''] = 
-        # TODO: GATHER OTHER DATA
+        listingDetailsTable = driver.find_elements_by_class_name('listing-details-table') # the table(s) that contain the rest of the data.  Usually 2 tables
+        for table in listingDetailsTable:
+            listingDetailsKeys = table.find_elements_by_class_name('detail-key')
+            listingDetailsValues = table.find_elements_by_class_name('detail-value')
+            for i in range(0, len(listingDetailsKeys)):
+                key = listingDetailsKeys[i].text
+                value = listingDetailsValues[i].text
+                listingDataTemp[key] = value
         if (listingDataCombined.empty):
             listingDataCombined = listingDataTemp
         else:
             listingDataCombined = listingDataCombined.append(listingDataTemp)
     return listingDataCombined
+
 
 def hideZendeskPopup():
     try:
@@ -124,9 +123,11 @@ listingLinks = scrapeSearchListingLinks()
 listingData = scrapeListingData(listingLinks)
 
 print("** Total count of listings: " + str(listingData.shape[0]))
-for delivery in list(listingData['Delivery']):
-    print(delivery)
+for size in list(listingData['Size']):
+    print(size)
 
-# TODO: EXPORT PANDAS DATAFRAME TO CSV OR EXCEL
+# from datetime import datetime
+# print(datetime.now)
+# listingData.to_excel('Tiny House Listings as of YYYY-MM-DD HH:MM', header=True)
 
 driver.quit()
