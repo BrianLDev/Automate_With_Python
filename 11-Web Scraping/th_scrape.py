@@ -7,12 +7,23 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+# ***** GLOBAL VARIABLES / INITIALIZE *****
+driver = webdriver.PhantomJS()
+driver.set_window_size(1120, 550)
+
+url1 = 'https://tinyhouselistings.com/search?area_max=700&area_min=200&location_type=mobile&page='
+page = '1'
+url2 = '&price_max=5000000&price_min=100&purchase_type=purchase'
+'https://tinyhouselistings.com/search?area_max=700&area_min=200&location_type=mobile&page=10&price_max=5000000&price_min=100&purchase_type=purchase'
+search_url = url1 + page + url2
+
 
 # ***** FUNCTIONS *****
 def loadPage(url):
     try:
         driver.get(url)
         # driver.navigate(url)
+        wait = WebDriverWait(driver, 10)
     except:
         print("Couldn't load url: " + url + "\nMay have reached the end of list")
 
@@ -25,7 +36,8 @@ def getAllCardLinks(webElement):
         links.append(card.find_element_by_tag_name('a').get_attribute('href') )
     return links
 
-def getPageCount():
+def getPageCount(url):
+    loadPage(url)
     results_count = driver.find_element_by_class_name('results-count')
     print(results_count)
     results_count = results_count.text
@@ -36,11 +48,13 @@ def getPageCount():
     print("Page total = " + str(pages))
     return pages
 
-def scrapeAllListingLinks():
+def scrapeSearchListingLinks():
+    print("\n***** SCRAPING LISTING LINKS FROM SEARCH QUERY *****")
     # Loop through all pages of the search and collect links to listings
-    combinedLinks = []
+    listingLinksTemp = []
     pageLinks = []
-    for i in range(1, page_count+1):
+    # for i in range(1, page_count+1):
+    for i in range(1, 2): #Delete this when done testing
         page = i
         search_url = url1 + str(page) + url2
         print("*** Scanning page " + str(page))
@@ -50,29 +64,52 @@ def scrapeAllListingLinks():
 
         pageLinks = getAllCardLinks(search_url)
         for link in pageLinks:
-            combinedLinks.append(link)
+            listingLinksTemp.append(link)
             print(link)
-    return combinedLinks
+    print("Final item count = " + str(len(listingLinksTemp)) )
+    return listingLinksTemp
+
+def scrapeListingData(links):
+    print("\n***** SCRAPING DATA FROM INDIVIDUAL LISTING PAGES *****")
+    listingDataCombined = pd.DataFrame()
+
+    for link in links:
+        listingDataTemp = pd.DataFrame()
+        print("Scraping data from: " + link)
+        loadPage(link)
+        wait = WebDriverWait(driver, 10)
+        hideZendeskPopup()
+        name = driver.find_element_by_class_name('listing-right-title').text
+        listingDataTemp['Name'] = pd.Series(name)
+        # TODO: GATHER OTHER DATA
+        if (listingDataCombined.empty):
+            listingDataCombined = listingDataTemp
+        else:
+            listingDataCombined = listingDataCombined.append(listingDataTemp)
+    print("** Total count of listing names: " + str(listingDataCombined.shape[0]))
+    for name in list(listingDataCombined['Name']):
+        print(name)
+    return listingDataCombined
+
+def hideZendeskPopup():
+    try:
+        xpath = '//*[@id="Embed"]/div/div/div/div/div/div/div[1]/div/button[2]/svg'
+        xpathFull = '/html/body/div[1]/div/div/div/div/div/div/div/div/div[1]/div/button[2]/svg'
+        # driver.switch_to_frame(driver.find_element_by_id("webWidget")
+        zendesk = driver.find_element_by_xpath(xpath)
+        # driver.switch_to_frame(zendesk)
+        zendesk.click()
+        print (' !! Zendesk popup Squashed !!')
+    except:
+        # print('.. No zendesk popup ..')
 
 
 # ***** SCRIPT *****
-driver = webdriver.PhantomJS()
-driver.set_window_size(1120, 550)
+page_count = getPageCount(search_url)
+listingLinks = scrapeSearchListingLinks()
+listingData = scrapeListingData(listingLinks)
 
-url1 = 'https://tinyhouselistings.com/search?area_max=700&area_min=200&location_type=mobile&page='
-page = '1'
-url2 = '&price_max=5000000&price_min=100&purchase_type=purchase'
-'https://tinyhouselistings.com/search?area_max=700&area_min=200&location_type=mobile&page=10&price_max=5000000&price_min=100&purchase_type=purchase'
-search_url = url1 + page + url2
-loadPage(search_url)
 
-page_count = getPageCount()
-
-allLinks = scrapeAllListingLinks()
-
-print("Final item count = " + str(len(allLinks)) )
-
-# TODO: SCRAPE DATA FROM ALL INDIVIDUAL LISTING PAGES
 # TODO: PUT SCRAPED LISTING DATA INTO PANDAS DATAFRAME
 # TODO: EXPORT PANDAS DATAFRAME TO CSV OR EXCEL
 
