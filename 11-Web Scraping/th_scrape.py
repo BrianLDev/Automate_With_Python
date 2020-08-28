@@ -83,11 +83,11 @@ def scrapeListingData(links):
         listingDataTemp['Name'] = pd.Series(name)
         listingDataTemp['Price'] = driver.find_element_by_class_name('listing-price').text
         listingDataTemp['Location'] = driver.find_element_by_class_name('listing-location-string').text
-        listingDetailsStack = driver.find_element_by_class_name('listing-details-stack') # the stack that holds type, foundation, delivery
-        listingDetailsValues = listingDetailsStack.find_elements_by_tag_name('h4') # values of type, foundation, delivery
+        listingDetailsStack = driver.find_element_by_class_name('listing-details-stack') # the stack that holds type, foundation, misc
+        listingDetailsValues = listingDetailsStack.find_elements_by_tag_name('h4') # values of type, foundation, misc
         listingDataTemp['Type'] = listingDetailsValues[0].text
         listingDataTemp['Foundation'] = listingDetailsValues[1].text
-        listingDataTemp['Delivery'] = listingDetailsValues[2].text
+        listingDataTemp['Misc'] = listingDetailsValues[2].text
         listingDetailsTable = driver.find_elements_by_class_name('listing-details-table') # the table(s) that contain the rest of the data.  Usually 2 tables
         for table in listingDetailsTable:
             listingDetailsKeys = table.find_elements_by_class_name('detail-key')
@@ -96,12 +96,41 @@ def scrapeListingData(links):
                 key = listingDetailsKeys[i].text
                 value = listingDetailsValues[i].text
                 listingDataTemp[key] = value
+        listingDataTemp['Link'] = link
+        # Add individual listing to DataFrame of listings
         if (listingDataCombined.empty):
             listingDataCombined = listingDataTemp
         else:
             listingDataCombined = listingDataCombined.append(listingDataTemp)
     return listingDataCombined
 
+# def isolateValue(string):
+#     try:
+#         if type(string) != type(str):
+#             print("Unexpected type. " + str(string) + " = " + str(type(string)) )
+#         string = str(string) # ensure that everything is a string
+#         if string.contains('$'):
+#             string = string.replace('$', '')
+#             string = string.replace(',', '')
+#             value = int(string)
+#         elif string.contains(' '):
+#             if string.contains('.'):
+#                 value = float(str(string).split(' ')[0] )
+#             else:
+#                 value = int(str(string).split(' ')[0] )
+#         else:
+#             if string.contains('.'):
+#                 value = float(string)
+#             else:
+#                 value = int(string)
+#         return value
+#     except:
+#         print("Couldn't isolate value on: " + string)
+#         pass
+
+# def isolateValuesInSeries(seriesOfStrings):
+#     seriesOfValues = seriesOfStrings.apply(lambda x : isolateValue(x) )
+#     return seriesOfValues
 
 def hideZendeskPopup():
     try:
@@ -116,18 +145,36 @@ def hideZendeskPopup():
         # print('.. No zendesk popup ..')
         pass
 
+def getDateStamp():
+    from datetime import datetime
+    date = datetime.now()
+    # dateStamp = str(date.year) + "-" + str(date.month) + "-" + str(date.day) + " " + str(date.hour) + str(date.minute)
+    dateStamp = str(date)
+    dateStamp = dateStamp.replace(':', '_')
+    print(dateStamp)
+    return dateStamp
+
 
 # ***** SCRIPT *****
 page_count = getPageCount(search_url)
 listingLinks = scrapeSearchListingLinks()
 listingData = scrapeListingData(listingLinks)
 
-print("** Total count of listings: " + str(listingData.shape[0]))
-for size in list(listingData['Size']):
-    print(size)
+# TODO: Convert strings to numbers and get rid of extraneous data
+# listingData['Price'] = isolateValuesInSeries(listingData['Price'])
+# listingData['Bedrooms'] = isolateValuesInSeries(listingData['Bedrooms'])
+# listingData['Lofts'] = isolateValuesInSeries(listingData['Lofts'])
+# listingData['Bathrooms'] = isolateValuesInSeries(listingData['Bathrooms'])
+# listingData['Size'] = isolateValuesInSeries(listingData['Size'])
+# listingData['Length'] = isolateValuesInSeries(listingData['Length'])
+# listingData['Width'] = isolateValuesInSeries(listingData['Width'])
+# listingData['Days on site'] = isolateValuesInSeries(listingData['Days on site'])
+# listingData['Number of views'] = isolateValuesInSeries(listingData['Number of views'])
+# listingData['Times dreamlisted'] = isolateValuesInSeries(listingData['Times dreamlisted'])
 
-# from datetime import datetime
-# print(datetime.now)
-# listingData.to_excel('Tiny House Listings as of YYYY-MM-DD HH:MM', header=True)
+print("/n** Total count of listings: " + str(listingData.shape[0]))
+
+dateStamp = getDateStamp()
+listingData.to_excel('Tiny House Listings ' + dateStamp + ".xlsx", header=True, index=False)
 
 driver.quit()
