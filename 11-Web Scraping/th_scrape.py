@@ -81,14 +81,27 @@ def scrapeListingData(links):
         hideZendeskPopup()
         name = driver.find_element_by_class_name('listing-right-title').text
         listingDataTemp['Name'] = pd.Series(name)
+        listingDataTemp['Price'] = driver.find_element_by_class_name('listing-price').text
+        listingDataTemp['Location'] = driver.find_element_by_class_name('listing-location-string').text
+        listingDetailsStack = driver.find_element_by_class_name('listing-details-stack') # the stack that holds type, foundation, delivery
+        listingDetailsValues = listingDetailsStack.find_elements_by_tag_name('h4') # values of type, foundation, delivery
+        listingDataTemp['Type'] = listingDetailsValues[0].text
+        listingDataTemp['Foundation'] = listingDetailsValues[1].text
+        listingDataTemp['Delivery'] = listingDetailsValues[2].text
+        # listingDataTemp[''] = 
+        # listingDataTemp[''] = 
+        # listingDataTemp[''] = 
+        # listingDataTemp[''] = 
+        # listingDataTemp[''] = 
+        # listingDataTemp[''] = 
+        # listingDataTemp[''] = 
+        # listingDataTemp[''] = 
+        # listingDataTemp[''] = 
         # TODO: GATHER OTHER DATA
         if (listingDataCombined.empty):
             listingDataCombined = listingDataTemp
         else:
             listingDataCombined = listingDataCombined.append(listingDataTemp)
-    print("** Total count of listing names: " + str(listingDataCombined.shape[0]))
-    for name in list(listingDataCombined['Name']):
-        print(name)
     return listingDataCombined
 
 def hideZendeskPopup():
@@ -102,6 +115,7 @@ def hideZendeskPopup():
         print (' !! Zendesk popup Squashed !!')
     except:
         # print('.. No zendesk popup ..')
+        pass
 
 
 # ***** SCRIPT *****
@@ -109,8 +123,10 @@ page_count = getPageCount(search_url)
 listingLinks = scrapeSearchListingLinks()
 listingData = scrapeListingData(listingLinks)
 
+print("** Total count of listings: " + str(listingData.shape[0]))
+for delivery in list(listingData['Delivery']):
+    print(delivery)
 
-# TODO: PUT SCRAPED LISTING DATA INTO PANDAS DATAFRAME
 # TODO: EXPORT PANDAS DATAFRAME TO CSV OR EXCEL
 
 driver.quit()
