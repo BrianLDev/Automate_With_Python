@@ -102,35 +102,36 @@ def scrapeListingData(links):
             listingDataCombined = listingDataTemp
         else:
             listingDataCombined = listingDataCombined.append(listingDataTemp)
+    # Ensure that Link is the last column and return the DataFrame
+    dfTemp = listingDataCombined.pop('Link')
+    listingDataCombined['Link'] = dfTemp
     return listingDataCombined
 
-# def isolateValue(string):
-#     try:
-#         if type(string) != type(str):
-#             print("Unexpected type. " + str(string) + " = " + str(type(string)) )
-#         string = str(string) # ensure that everything is a string
-#         if string.contains('$'):
-#             string = string.replace('$', '')
-#             string = string.replace(',', '')
-#             value = int(string)
-#         elif string.contains(' '):
-#             if string.contains('.'):
-#                 value = float(str(string).split(' ')[0] )
-#             else:
-#                 value = int(str(string).split(' ')[0] )
-#         else:
-#             if string.contains('.'):
-#                 value = float(string)
-#             else:
-#                 value = int(string)
-#         return value
-#     except:
-#         print("Couldn't isolate value on: " + string)
-#         pass
+def isolateValue(string):
+    try:
+        string = str(string) # ensure that everything is a string
+        if '$' in string:
+            string = string.replace('$', '')
+            string = string.replace(',', '')
+            value = int(string)
+        elif ' ' in string:
+            if '.' in string:
+                value = float(str(string).split(' ')[0] )
+            else:
+                value = int(str(string).split(' ')[0] )
+        else:
+            if '.' in string:
+                value = float(string)
+            else:
+                value = int(string)
+        return value
+    except:
+        print("Couldn't isolate value on: " + string)
+        pass
 
-# def isolateValuesInSeries(seriesOfStrings):
-#     seriesOfValues = seriesOfStrings.apply(lambda x : isolateValue(x) )
-#     return seriesOfValues
+def isolateValuesInSeries(seriesOfStrings):
+    seriesOfValues = seriesOfStrings.apply(lambda x : isolateValue(x) )
+    return seriesOfValues
 
 def hideZendeskPopup():
     try:
@@ -144,6 +145,14 @@ def hideZendeskPopup():
     except:
         # print('.. No zendesk popup ..')
         pass
+
+def makeSubdirectory(name):
+    import os
+    if os.path.exists(name) == False:
+        try:
+            os.mkdir(name)
+        except OSError as error:
+            print(error)
 
 def getDateStamp():
     from datetime import datetime
@@ -160,21 +169,23 @@ page_count = getPageCount(search_url)
 listingLinks = scrapeSearchListingLinks()
 listingData = scrapeListingData(listingLinks)
 
-# TODO: Convert strings to numbers and get rid of extraneous data
-# listingData['Price'] = isolateValuesInSeries(listingData['Price'])
-# listingData['Bedrooms'] = isolateValuesInSeries(listingData['Bedrooms'])
-# listingData['Lofts'] = isolateValuesInSeries(listingData['Lofts'])
-# listingData['Bathrooms'] = isolateValuesInSeries(listingData['Bathrooms'])
-# listingData['Size'] = isolateValuesInSeries(listingData['Size'])
-# listingData['Length'] = isolateValuesInSeries(listingData['Length'])
-# listingData['Width'] = isolateValuesInSeries(listingData['Width'])
-# listingData['Days on site'] = isolateValuesInSeries(listingData['Days on site'])
-# listingData['Number of views'] = isolateValuesInSeries(listingData['Number of views'])
-# listingData['Times dreamlisted'] = isolateValuesInSeries(listingData['Times dreamlisted'])
+listingData['Price'] = isolateValuesInSeries(listingData['Price'])
+listingData['Bedrooms'] = isolateValuesInSeries(listingData['Bedrooms'])
+listingData['Lofts'] = isolateValuesInSeries(listingData['Lofts'])
+listingData['Bathrooms'] = isolateValuesInSeries(listingData['Bathrooms'])
+listingData['Size'] = isolateValuesInSeries(listingData['Size'])
+listingData['Length'] = isolateValuesInSeries(listingData['Length'])
+listingData['Width'] = isolateValuesInSeries(listingData['Width'])
+listingData['Days on site'] = isolateValuesInSeries(listingData['Days on site'])
+listingData['Number of views'] = isolateValuesInSeries(listingData['Number of views'])
+listingData['Times dreamlisted'] = isolateValuesInSeries(listingData['Times dreamlisted'])
 
 print("/n** Total count of listings: " + str(listingData.shape[0]))
 
+subdirectoryName = 'th_scrapes'
+makeSubdirectory(subdirectoryName)
+
 dateStamp = getDateStamp()
-listingData.to_excel('Tiny House Listings ' + dateStamp + ".xlsx", header=True, index=False)
+listingData.to_excel(subdirectoryName + "/" + "Tiny House Listings " + dateStamp + ".xlsx", header=True, index=False)
 
 driver.quit()
