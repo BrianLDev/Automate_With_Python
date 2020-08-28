@@ -53,16 +53,22 @@ def scrapeSearchListingLinks():
     # Loop through all pages of the search and collect links to listings
     listingLinksTemp = []
     pageLinks = []
-    # for i in range(1, page_count+1):
-    for i in range(1, 2): #Delete this when done testing
+    for i in range(1, page_count+1):
+    # for i in range(7, 8):        ###########    FOR TESTING
         page = i
         search_url = url1 + str(page) + url2
         print("*** Scanning page " + str(page))
         print(search_url)
         loadPage(search_url)
-        wait = WebDriverWait(driver, 10)
+        wait = WebDriverWait(driver, 50)
 
-        pageLinks = getAllCardLinks(search_url)
+        pageLinks = None
+        while(not pageLinks):
+            pageLinks = getAllCardLinks(search_url)
+            if not pageLinks:
+                print("No cards found on page.  Trying again")
+                wait = WebDriverWait(driver, 50)
+        
         for link in pageLinks:
             listingLinksTemp.append(link)
             print(link)
@@ -79,23 +85,28 @@ def scrapeListingData(links):
         loadPage(link)
         wait = WebDriverWait(driver, 10)
         hideZendeskPopup()
-        name = driver.find_element_by_class_name('listing-right-title').text
-        listingDataTemp['Name'] = pd.Series(name)
-        listingDataTemp['Price'] = driver.find_element_by_class_name('listing-price').text
-        listingDataTemp['Location'] = driver.find_element_by_class_name('listing-location-string').text
-        listingDetailsStack = driver.find_element_by_class_name('listing-details-stack') # the stack that holds type, foundation, misc
-        listingDetailsValues = listingDetailsStack.find_elements_by_tag_name('h4') # values of type, foundation, misc
-        listingDataTemp['Type'] = listingDetailsValues[0].text
-        listingDataTemp['Foundation'] = listingDetailsValues[1].text
-        listingDataTemp['Misc'] = listingDetailsValues[2].text
-        listingDetailsTable = driver.find_elements_by_class_name('listing-details-table') # the table(s) that contain the rest of the data.  Usually 2 tables
-        for table in listingDetailsTable:
-            listingDetailsKeys = table.find_elements_by_class_name('detail-key')
-            listingDetailsValues = table.find_elements_by_class_name('detail-value')
-            for i in range(0, len(listingDetailsKeys)):
-                key = listingDetailsKeys[i].text
-                value = listingDetailsValues[i].text
-                listingDataTemp[key] = value
+        for i in range(1, 6):
+            try:
+                name = driver.find_element_by_class_name('listing-right-title').text
+                listingDataTemp['Name'] = pd.Series(name)
+                listingDataTemp['Price'] = driver.find_element_by_class_name('listing-price').text
+                listingDataTemp['Location'] = driver.find_element_by_class_name('listing-location-string').text
+                listingDetailsStack = driver.find_element_by_class_name('listing-details-stack') # the stack that holds type, foundation, misc
+                listingDetailsValues = listingDetailsStack.find_elements_by_tag_name('h4') # values of type, foundation, misc
+                listingDataTemp['Type'] = listingDetailsValues[0].text
+                listingDataTemp['Foundation'] = listingDetailsValues[1].text
+                listingDataTemp['Misc'] = listingDetailsValues[2].text
+                listingDetailsTable = driver.find_elements_by_class_name('listing-details-table') # the table(s) that contain the rest of the data.  Usually 2 tables
+                for table in listingDetailsTable:
+                    listingDetailsKeys = table.find_elements_by_class_name('detail-key')
+                    listingDetailsValues = table.find_elements_by_class_name('detail-value')
+                    for i in range(0, len(listingDetailsKeys)):
+                        key = listingDetailsKeys[i].text
+                        value = listingDetailsValues[i].text
+                        listingDataTemp[key] = value
+                break
+            except:
+                print("Couldn't scrape listing data, trying again. Attempt " + str(i) + "/5")
         listingDataTemp['Link'] = link
         # Add individual listing to DataFrame of listings
         if (listingDataCombined.empty):
@@ -148,6 +159,33 @@ def hideZendeskPopup():
         # print('.. No zendesk popup ..')
         pass
 
+def validateColumns(df):
+    correctColumns = ['Name', 'Price', 'Location', 'Type', 'Foundation', 'Misc', 'Bedrooms', 'Lofts', 'Bathrooms', 'Size', 'Length', 'Width', 'Days on site', 'Number of views', 'Times dreamlisted', 'Link']
+    for col in correctColumns:
+        if col not in df.columns:
+            print("Found a missing column: " + col + ".  Adding it now")
+            df[col] = pd.Series()
+    # Ensure that Link is the last column and return the DataFrame
+    dfTemp = df.pop('Link')
+    df['Link'] = dfTemp
+    return df
+
+def cleanData(df):
+    df = validateColumns(df)
+    # Clean up data formatting and isolate values
+    print("Cleaning up formatting and isolating values...")
+    df['Price'] = isolateValuesInSeries(df['Price'])
+    df['Bedrooms'] = isolateValuesInSeries(df['Bedrooms'])
+    df['Lofts'] = isolateValuesInSeries(df['Lofts'])
+    df['Bathrooms'] = isolateValuesInSeries(df['Bathrooms'])
+    df['Size'] = isolateValuesInSeries(df['Size'])
+    df['Length'] = isolateValuesInSeries(df['Length'])
+    df['Width'] = isolateValuesInSeries(df['Width'])
+    df['Days on site'] = isolateValuesInSeries(df['Days on site'])
+    df['Number of views'] = isolateValuesInSeries(df['Number of views'])
+    df['Times dreamlisted'] = isolateValuesInSeries(df['Times dreamlisted'])
+    return df
+
 def makeSubdirectory(name):
     import os
     if os.path.exists(name) == False:
@@ -177,21 +215,16 @@ def saveToCSV(subdirectoryName):
 page_count = getPageCount(search_url)
 listingLinks = scrapeSearchListingLinks()
 listingData = scrapeListingData(listingLinks)
-
-# Clean up data formatting and isolate values
-listingData['Price'] = isolateValuesInSeries(listingData['Price'])
-listingData['Bedrooms'] = isolateValuesInSeries(listingData['Bedrooms'])
-listingData['Lofts'] = isolateValuesInSeries(listingData['Lofts'])
-listingData['Bathrooms'] = isolateValuesInSeries(listingData['Bathrooms'])
-listingData['Size'] = isolateValuesInSeries(listingData['Size'])
-listingData['Length'] = isolateValuesInSeries(listingData['Length'])
-listingData['Width'] = isolateValuesInSeries(listingData['Width'])
-listingData['Days on site'] = isolateValuesInSeries(listingData['Days on site'])
-listingData['Number of views'] = isolateValuesInSeries(listingData['Number of views'])
-listingData['Times dreamlisted'] = isolateValuesInSeries(listingData['Times dreamlisted'])
-
 print("\n** Total count of listings: " + str(listingData.shape[0]))
-saveToCSV('th_scrapes')
-print("** SCRAPE COMPLETE **\n")
 
+folder = 'th_scrapes'
+saveToCSV(folder)
+# Clean daeta
+listingData = cleanData(listingData)
+
+# Save data
+saveToCSV(folder)
+print("\n***** SCRAPE COMPLETE *****\n")
+
+# Done
 driver.quit()
