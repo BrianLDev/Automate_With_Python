@@ -126,8 +126,10 @@ def isolateValue(string):
                 value = int(string)
         return value
     except:
-        print("Couldn't isolate value on: " + string)
-        pass
+        if not str(string): # checks if string is empty
+            pass
+        else:
+            print("Couldn't isolate value on: " + string)
 
 def isolateValuesInSeries(seriesOfStrings):
     seriesOfValues = seriesOfStrings.apply(lambda x : isolateValue(x) )
@@ -150,6 +152,7 @@ def makeSubdirectory(name):
     import os
     if os.path.exists(name) == False:
         try:
+            print("Making subdirectory to save scrapes: " + name)
             os.mkdir(name)
         except OSError as error:
             print(error)
@@ -160,15 +163,22 @@ def getDateStamp():
     # dateStamp = str(date.year) + "-" + str(date.month) + "-" + str(date.day) + " " + str(date.hour) + str(date.minute)
     dateStamp = str(date)
     dateStamp = dateStamp.replace(':', '_')
-    print(dateStamp)
     return dateStamp
+
+def saveToCSV(subdirectoryName):
+    print("Saving records to csv format in subdirectory: " + subdirectoryName)
+    makeSubdirectory(subdirectoryName)
+    dateStamp = getDateStamp()
+    listingData.to_csv(subdirectoryName + "/" + "TH Listings " + dateStamp + ".csv", header=True, index=False)
 
 
 # ***** SCRIPT *****
+# Run scrapes
 page_count = getPageCount(search_url)
 listingLinks = scrapeSearchListingLinks()
 listingData = scrapeListingData(listingLinks)
 
+# Clean up data formatting and isolate values
 listingData['Price'] = isolateValuesInSeries(listingData['Price'])
 listingData['Bedrooms'] = isolateValuesInSeries(listingData['Bedrooms'])
 listingData['Lofts'] = isolateValuesInSeries(listingData['Lofts'])
@@ -180,12 +190,8 @@ listingData['Days on site'] = isolateValuesInSeries(listingData['Days on site'])
 listingData['Number of views'] = isolateValuesInSeries(listingData['Number of views'])
 listingData['Times dreamlisted'] = isolateValuesInSeries(listingData['Times dreamlisted'])
 
-print("/n** Total count of listings: " + str(listingData.shape[0]))
-
-subdirectoryName = 'th_scrapes'
-makeSubdirectory(subdirectoryName)
-
-dateStamp = getDateStamp()
-listingData.to_excel(subdirectoryName + "/" + "Tiny House Listings " + dateStamp + ".xlsx", header=True, index=False)
+print("\n** Total count of listings: " + str(listingData.shape[0]))
+saveToCSV('th_scrapes')
+print("** SCRAPE COMPLETE **\n")
 
 driver.quit()
