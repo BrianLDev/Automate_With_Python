@@ -96,9 +96,11 @@ def scrapeSearchListingLinks(searchCriteriaDict = {'page':'1'}):
 
 def scrapeListingData(links):
     listingDataCombined = pd.DataFrame()
+    runningTotal = 0
     for link in links:
         listingDataTemp = pd.DataFrame()
-        print("Scraping data from: " + link)
+        runningTotal += 1
+        print("Scraping listing " + str(runningTotal) + " of " + str(len(links)) + ": " + link)
         loadPage(link)
         wait = WebDriverWait(driver, 10)
         hideZendeskPopup()
@@ -236,7 +238,7 @@ def saveToCSV(subdirectoryName):
 # Leave an item blank to ignore it in the search filter
 # To choose multiple within the same category, put '%2C' between them (e.g. '&purchase_type=purchase%2Cmodel')
 # The URL builder function will use the '&' symbol as needed to include a search term
-# TODO: CREATE AN INPUT FUNCTION SO I CAN CUSTOMIZE SEARCH TERMS AS NEEDED WITHOUT HAVING TO CHANGE THE SCRIPT
+# TODO: CREATE AN INPUT FUNCTION SO I CAN CUSTOMIZE SEARCH TERMS WITHOUT HAVING TO CHANGE THE SCRIPT
 searchOptionsDict = {
     'price_min': '10000',         # Includes cents
     'price_max': '5000000',       # Includes cents
@@ -255,9 +257,9 @@ searchOptionsDict = {
 
 # ***** RUN SCRIPTS *****
 print("\n\n***** 1. CREATING A CUSTOMIZED SEARCH URL *****\n")
-# search_url = createNewURL(searchOptionsDict)   # Scrape data based on custom search criteria
+search_url = createNewURL(searchOptionsDict)   # Scrape data based on custom search criteria
 # OR
-search_url = createNewURL()                    # Scrape data from ALL listings
+# search_url = createNewURL()                    # Scrape data from ALL listings
 
 # Get listing and page counts
 print("\n\n***** 2. GETTING ORIGINAL LISTING COUNT AND CALCULATING PAGE COUNT *****\n")
@@ -280,7 +282,7 @@ folder = 'th_scrapes'
 saveToCSV(folder)
 
 # Summary
-print("\n\n")
+print("\n")
 print("************* SCRAPE COMPLETE *************\n")
 print("Listings scraped: " + str(listingData.shape[0]) + " out of " + str(listings_count) + " (" + str(round(listingData.shape[0] / listings_count * 100, 2)) + "%)" )
 valuesScraped = np.sum(listingData.count())
