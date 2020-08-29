@@ -110,43 +110,28 @@ def scrapeListingData(links):
         hideZendeskPopup()
         for i in range(1, 6):
             try:
+                # Get name and price from the top section
                 name = driver.find_element_by_class_name('listing-right-title').text
                 listingDataTemp['Name'] = pd.Series(name)
                 listingDataTemp['Price'] = driver.find_element_by_class_name('listing-price').text
-
                 # Get location and split into City, State, Country
                 location = driver.find_element_by_class_name('listing-location-string').text
-                print("Location = " + location)                ###########################  TESTING
-                print("Location type = " + str(type(location)))                ###########################  TESTING
-
-                listingDataTemp['Location'] = str(location).strip()
+                listingDataTemp['Location'] = pd.Series(str(location).strip(), dtype='string')
                 locationSplit = str(location).split(", ")
-                print("Location Split type = " + str(type(locationSplit)))                ###########################  TESTING
-                for location in locationSplit:
-                    print("-Loc: " + location)                ###########################  TESTING
-                    print("-Type: " + str(type(location)))                ###########################  TESTING
-                print('City no str: ' + locationSplit[0])                ###########################  TESTING
-                print('State no str: ' + locationSplit[1])                  ###########################  TESTING
-                print('Country no str: ' + locationSplit[2])                 ###########################  TESTING
-                city = locationSplit[0]
-                state = locationSplit[1]
-                country = locationSplit[2]
-                print('City var: ' + city)               ###########################  TESTING
-                print('State var: ' + state)                  ###########################  TESTING
-                print('Country var: ' + country)                 ###########################  TESTING
-                listingDataTemp['City'] = locationSplit[0]
-                listingDataTemp['State'] = str(locationSplit[1])
-                listingDataTemp['Country'] = str(locationSplit[2]).strip()
-                print('City after: ' + listingDataTemp['City'])                ###########################  TESTING
-                print('State after: ' + listingDataTemp['State'])                  ###########################  TESTING
-                print('Country after: ' + listingDataTemp['Country'])                 ###########################  TESTING
-
-                listingDetailsStack = driver.find_element_by_class_name('listing-details-stack') # the stack that holds type, foundation, misc
+                city = pd.Series([locationSplit[0]], dtype='string')
+                state = pd.Series(locationSplit[1], dtype='string')
+                country = pd.Series(locationSplit[2], dtype='string')
+                listingDataTemp['City'] = pd.Series([locationSplit[0]], dtype='string')
+                listingDataTemp['State'] = pd.Series([locationSplit[1]], dtype='string')
+                listingDataTemp['Country'] = pd.Series([locationSplit[2]], dtype='string')
+                # Get type, foundation, misc from listingDetailsStack
+                listingDetailsStack = driver.find_element_by_class_name('listing-details-stack')
                 listingDetailsValues = listingDetailsStack.find_elements_by_tag_name('h4') # values of type, foundation, misc
                 listingDataTemp['Type'] = listingDetailsValues[0].text
                 listingDataTemp['Foundation'] = listingDetailsValues[1].text
                 listingDataTemp['Misc'] = listingDetailsValues[2].text
-                listingDetailsTable = driver.find_elements_by_class_name('listing-details-table') # the table(s) that contain the rest of the data.  Usually 2 tables
+                # Get all the remaining data from the listingDetailsTable.  Usually has 2 of them per page.
+                listingDetailsTable = driver.find_elements_by_class_name('listing-details-table')
                 for table in listingDetailsTable:
                     listingDetailsKeys = table.find_elements_by_class_name('detail-key')
                     listingDetailsValues = table.find_elements_by_class_name('detail-value')
