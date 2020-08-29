@@ -11,9 +11,10 @@ from selenium.webdriver.support import expected_conditions as EC
 # ***** GLOBAL VARIABLES / INITIALIZE *****
 driver = webdriver.PhantomJS()
 driver.set_window_size(1120, 550)
+urlCreated = False
 
 # ***** FUNCTIONS *****
-def createURL(searchCriteriaDict = {'price_min':''}):
+def createNewURL(searchCriteriaDict = {'page':'1'}):
     # Default is to pull ALL listings if searchCriteriaDict is left blank
     if len(searchCriteriaDict)==1:
         print("*** No search criteria added. Creating a URL to pull all listings...")
@@ -23,7 +24,15 @@ def createURL(searchCriteriaDict = {'price_min':''}):
     for key in searchCriteriaDict:
         if searchCriteriaDict[key] != '':
             url = url + '&' + str(key) + '=' + str(searchCriteriaDict[key])
-    print("Final search URL:\n" + url)
+    print("Custom search URL:  " + url)
+    urlCreated = True
+    return url
+
+def createURL(searchCriteriaDict = {'page':'1'}):
+    url = 'https://tinyhouselistings.com/search?'
+    for key in searchCriteriaDict:
+        if searchCriteriaDict[key] != '':
+            url = url + '&' + str(key) + '=' + str(searchCriteriaDict[key])
     return url
 
 def loadPage(url):
@@ -59,15 +68,16 @@ def getAllCardLinks(webElement):
         links.append(card.find_element_by_tag_name('a').get_attribute('href') )
     return links
 
-def scrapeSearchListingLinks():
+def scrapeSearchListingLinks(searchCriteriaDict = {'page':'1'}):
     # Loop through all pages of the search and collect links to listings
     listingLinksTemp = []
     pageLinks = []
-    # for i in range(1, page_count+1):
-    for i in range(7, 8):        ###########    FOR TESTING
+    for i in range(1, page_count+1):
+    # for i in range(7, 9):        ###########    FOR TESTING
         page = i
-        print("*** Scanning page " + str(page))
-        # print(search_url)
+        print("*** Scraping links from page " + str(page))
+        searchCriteriaDict['page'] = i
+        search_url = createURL(searchCriteriaDict)
         loadPage(search_url)
         wait = WebDriverWait(driver, 50)
 
@@ -245,9 +255,9 @@ searchOptionsDict = {
 
 # ***** RUN SCRIPTS *****
 print("\n\n***** 1. CREATING A CUSTOMIZED SEARCH URL *****\n")
-# search_url = createURL(searchOptionsDict)   # Scrape data based on custom search criteria
+# search_url = createNewURL(searchOptionsDict)   # Scrape data based on custom search criteria
 # OR
-search_url = createURL()                    # Scrape data from ALL listings
+search_url = createNewURL()                    # Scrape data from ALL listings
 
 # Get listing and page counts
 print("\n\n***** 2. GETTING ORIGINAL LISTING COUNT AND CALCULATING PAGE COUNT *****\n")
@@ -275,7 +285,8 @@ print("************* SCRAPE COMPLETE *************\n")
 print("Listings scraped: " + str(listingData.shape[0]) + " out of " + str(listings_count) + " (" + str(round(listingData.shape[0] / listings_count * 100, 2)) + "%)" )
 valuesScraped = np.sum(listingData.count())
 valuesMax = (listings_count * listingData.shape[1])
-print("Values scraped: " + str(valuesScraped) + " out of " + str(valuesMax) + " (" + str(round(valuesScraped / valuesMax * 100, 2)) + "%)\n" )
+print("Values scraped*: " + str(valuesScraped) + " out of " + str(valuesMax) + " (" + str(round(valuesScraped / valuesMax * 100, 2)) + "%)\n" )
+print("   *Excludes blank or null values")
 print("*******************************************\n\n")
 
 # Done
