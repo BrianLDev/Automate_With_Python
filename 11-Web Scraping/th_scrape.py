@@ -273,9 +273,10 @@ searchOptionsDict = {
 
 # ***** RUN SCRIPTS *****
 print("\n\n***** 1. CREATING A CUSTOMIZED SEARCH URL *****\n")
-search_url = createNewURL(searchOptionsDict)   # Scrape data based on custom search criteria
+# TODO: Add ability to select search type outside of script editing
+# search_url = createNewURL(searchOptionsDict)   # Scrape data based on custom search criteria
 # OR
-# search_url = createNewURL()                    # Scrape data from ALL listings
+search_url = createNewURL()                    # Scrape data from ALL listings
 
 # Get listing and page counts
 print("\n\n***** 2. GETTING ORIGINAL LISTING COUNT AND CALCULATING PAGE COUNT *****\n")
