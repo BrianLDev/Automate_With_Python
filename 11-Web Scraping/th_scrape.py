@@ -1,5 +1,6 @@
 # Scrape tiny house listing data from tinyhouselistings.com
 import pandas as pd
+import numpy as np
 import math
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -11,14 +12,20 @@ from selenium.webdriver.support import expected_conditions as EC
 driver = webdriver.PhantomJS()
 driver.set_window_size(1120, 550)
 
-url1 = 'https://tinyhouselistings.com/search?area_max=700&area_min=200&location_type=mobile&page='
-page = '1'
-url2 = '&price_max=5000000&price_min=100&purchase_type=purchase'
-'https://tinyhouselistings.com/search?area_max=700&area_min=200&location_type=mobile&page=10&price_max=5000000&price_min=100&purchase_type=purchase'
-search_url = url1 + page + url2
-
-
 # ***** FUNCTIONS *****
+def createURL(searchCriteriaDict = {'price_min':''}):
+    # Default is to pull ALL listings if searchCriteriaDict is left blank
+    if len(searchCriteriaDict)==1:
+        print("*** No search criteria added. Creating a URL to pull all listings...")
+    else:
+        print("*** Custom URL being build from search criteria inputs...")
+    url = 'https://tinyhouselistings.com/search?'
+    for key in searchCriteriaDict:
+        if searchCriteriaDict[key] != '':
+            url = url + '&' + str(key) + '=' + str(searchCriteriaDict[key])
+    print("Final search URL:\n" + url)
+    return url
+
 def loadPage(url):
     try:
         driver.get(url)
@@ -26,6 +33,22 @@ def loadPage(url):
         wait = WebDriverWait(driver, 10)
     except:
         print("Couldn't load url: " + url + "\nMay have reached the end of list")
+
+def getListingsCount(url):
+    print("*** Scraping listings count...")
+    loadPage(url)
+    results_count = driver.find_element_by_class_name('results-count')
+    results_count = results_count.text
+    results_count = results_count.split(' ')
+    results_count = int(results_count[0])
+    print("Listings total = " + str(results_count))
+    return results_count
+
+def getPageCount(listingsCount):
+    print("*** Calculating page count...")
+    pages = int(math.ceil(listingsCount / 12))
+    print("Page total = " + str(pages))
+    return pages
 
 def getAllCardLinks(webElement):
     WebDriverWait(driver, 10)
@@ -36,29 +59,15 @@ def getAllCardLinks(webElement):
         links.append(card.find_element_by_tag_name('a').get_attribute('href') )
     return links
 
-def getPageCount(url):
-    loadPage(url)
-    results_count = driver.find_element_by_class_name('results-count')
-    print(results_count)
-    results_count = results_count.text
-    results_count = results_count.split(' ')
-    results_count = int(results_count[0])
-    print("Results total = " + str(results_count))
-    pages = int(math.ceil(results_count / 12))
-    print("Page total = " + str(pages))
-    return pages
-
 def scrapeSearchListingLinks():
-    print("\n***** SCRAPING LISTING LINKS FROM SEARCH QUERY *****")
     # Loop through all pages of the search and collect links to listings
     listingLinksTemp = []
     pageLinks = []
-    for i in range(1, page_count+1):
-    # for i in range(7, 8):        ###########    FOR TESTING
+    # for i in range(1, page_count+1):
+    for i in range(7, 8):        ###########    FOR TESTING
         page = i
-        search_url = url1 + str(page) + url2
         print("*** Scanning page " + str(page))
-        print(search_url)
+        # print(search_url)
         loadPage(search_url)
         wait = WebDriverWait(driver, 50)
 
@@ -72,13 +81,11 @@ def scrapeSearchListingLinks():
         for link in pageLinks:
             listingLinksTemp.append(link)
             print(link)
-    print("Final item count = " + str(len(listingLinksTemp)) )
+    print("DONE\n\nCount of Listings = " + str(len(listingLinksTemp)) )
     return listingLinksTemp
 
 def scrapeListingData(links):
-    print("\n***** SCRAPING DATA FROM INDIVIDUAL LISTING PAGES *****")
     listingDataCombined = pd.DataFrame()
-
     for link in links:
         listingDataTemp = pd.DataFrame()
         print("Scraping data from: " + link)
@@ -116,7 +123,21 @@ def scrapeListingData(links):
     # Ensure that Link is the last column and return the DataFrame
     dfTemp = listingDataCombined.pop('Link')
     listingDataCombined['Link'] = dfTemp
+    print("DONE\n\nTotal count of listings: " + str(listingDataCombined.shape[0]) )
     return listingDataCombined
+
+def hideZendeskPopup():
+    try:
+        xpath = '//*[@id="Embed"]/div/div/div/div/div/div/div[1]/div/button[2]/svg'
+        xpathFull = '/html/body/div[1]/div/div/div/div/div/div/div/div/div[1]/div/button[2]/svg'
+        # driver.switch_to_frame(driver.find_element_by_id("webWidget")
+        zendesk = driver.find_element_by_xpath(xpath)
+        # driver.switch_to_frame(zendesk)
+        zendesk.click()
+        print (' !! Zendesk popup Squashed !!')
+    except:
+        # print('.. No zendesk popup ..')
+        pass
 
 def isolateValue(string):
     try:
@@ -137,7 +158,7 @@ def isolateValue(string):
                 value = int(string)
         return value
     except:
-        if not str(string): # checks if string is empty
+        if (string == math.nan or string == 'nan' or string == ''):  # checks if string is empty
             pass
         else:
             print("Couldn't isolate value on: " + string)
@@ -146,34 +167,23 @@ def isolateValuesInSeries(seriesOfStrings):
     seriesOfValues = seriesOfStrings.apply(lambda x : isolateValue(x) )
     return seriesOfValues
 
-def hideZendeskPopup():
-    try:
-        xpath = '//*[@id="Embed"]/div/div/div/div/div/div/div[1]/div/button[2]/svg'
-        xpathFull = '/html/body/div[1]/div/div/div/div/div/div/div/div/div[1]/div/button[2]/svg'
-        # driver.switch_to_frame(driver.find_element_by_id("webWidget")
-        zendesk = driver.find_element_by_xpath(xpath)
-        # driver.switch_to_frame(zendesk)
-        zendesk.click()
-        print (' !! Zendesk popup Squashed !!')
-    except:
-        # print('.. No zendesk popup ..')
-        pass
-
 def validateColumns(df):
+    print("*** Validating columns...")
     correctColumns = ['Name', 'Price', 'Location', 'Type', 'Foundation', 'Misc', 'Bedrooms', 'Lofts', 'Bathrooms', 'Size', 'Length', 'Width', 'Days on site', 'Number of views', 'Times dreamlisted', 'Link']
     for col in correctColumns:
         if col not in df.columns:
-            print("Found a missing column: " + col + ".  Adding it now")
-            df[col] = pd.Series()
+            print("- Found a missing column: " + col + ".  Adding it now")
+            df[col] = pd.Series(dtype=int) # create an empty column with the missing column name
     # Ensure that Link is the last column and return the DataFrame
     dfTemp = df.pop('Link')
     df['Link'] = dfTemp
+    print("DONE")
     return df
 
 def cleanData(df):
     df = validateColumns(df)
     # Clean up data formatting and isolate values
-    print("Cleaning up formatting and isolating values...")
+    print("*** Cleaning, reformatting data and isolating values from text...")
     df['Price'] = isolateValuesInSeries(df['Price'])
     df['Bedrooms'] = isolateValuesInSeries(df['Bedrooms'])
     df['Lofts'] = isolateValuesInSeries(df['Lofts'])
@@ -184,13 +194,14 @@ def cleanData(df):
     df['Days on site'] = isolateValuesInSeries(df['Days on site'])
     df['Number of views'] = isolateValuesInSeries(df['Number of views'])
     df['Times dreamlisted'] = isolateValuesInSeries(df['Times dreamlisted'])
+    print("DONE")
     return df
 
 def makeSubdirectory(name):
     import os
     if os.path.exists(name) == False:
         try:
-            print("Making subdirectory to save scrapes: " + name)
+            print("*** Making subdirectory to save scrapes: " + name)
             os.mkdir(name)
         except OSError as error:
             print(error)
@@ -204,27 +215,68 @@ def getDateStamp():
     return dateStamp
 
 def saveToCSV(subdirectoryName):
-    print("Saving records to csv format in subdirectory: " + subdirectoryName)
+    print("*** Saving records to csv format in subdirectory: " + subdirectoryName)
     makeSubdirectory(subdirectoryName)
     dateStamp = getDateStamp()
     listingData.to_csv(subdirectoryName + "/" + "TH Listings " + dateStamp + ".csv", header=True, index=False)
+    print("DONE")
 
 
-# ***** SCRIPT *****
-# Run scrapes
-page_count = getPageCount(search_url)
+# ***** INPUT SEARCH OPTIONS *****
+# Leave an item blank to ignore it in the search filter
+# To choose multiple within the same category, put '%2C' between them (e.g. '&purchase_type=purchase%2Cmodel')
+# The URL builder function will use the '&' symbol as needed to include a search term
+# TODO: CREATE AN INPUT FUNCTION SO I CAN CUSTOMIZE SEARCH TERMS AS NEEDED WITHOUT HAVING TO CHANGE THE SCRIPT
+searchOptionsDict = {
+    'price_min': '10000',         # Includes cents
+    'price_max': '5000000',       # Includes cents
+    'area_min': '200',
+    'area_max': '700',            # The website slider maxes out at 700 so this may be a limit?  Will need to test
+    'purchase_type': 'purchase',  # Options are: 'purchase' 'rent' 'model'.  Connect multiple with the also keyword below
+    'location_type': 'mobile',    # Options are:  'mobile' 'stationary' 'floating'
+    'property_type': '',          # Options are: 'tiny_house' 'cabin boat' 'rv' 'converted_bus' 'other' 'land' 'camper' 'container_home' 'tiny_house_shell' 'apartment' 'tiny_house_trailer' 'park_model
+    'bedrooms_min': '',
+    'bedrooms_max': '',
+    'bathrooms_min': '',
+    'bathrooms_max': '',
+    'page': '1'
+}
+
+
+# ***** RUN SCRIPTS *****
+print("\n\n***** 1. CREATING A CUSTOMIZED SEARCH URL *****\n")
+# search_url = createURL(searchOptionsDict)   # Scrape data based on custom search criteria
+# OR
+search_url = createURL()                    # Scrape data from ALL listings
+
+# Get listing and page counts
+print("\n\n***** 2. GETTING ORIGINAL LISTING COUNT AND CALCULATING PAGE COUNT *****\n")
+listings_count = getListingsCount(search_url)
+page_count = getPageCount(listings_count)
+
+# Scrape the data and hold it in a DataFrame
+print("\n\n***** 3. SCRAPING LISTING LINKS FROM SEARCH QUERY *****\n")
 listingLinks = scrapeSearchListingLinks()
+print("\n\n***** 4. SCRAPING DATA FROM INDIVIDUAL LISTING PAGES *****\n")
 listingData = scrapeListingData(listingLinks)
-print("\n** Total count of listings: " + str(listingData.shape[0]))
 
-folder = 'th_scrapes'
-saveToCSV(folder)
-# Clean daeta
+# Clean data
+print("\n\n***** 5. CLEAN AND REFORMAT THE DATA *****\n")
 listingData = cleanData(listingData)
 
-# Save data
+# Save as a csv export in a subfolder
+print("\n\n***** 6. SAVE AND EXPORT TO CSV *****\n")
+folder = 'th_scrapes'
 saveToCSV(folder)
-print("\n***** SCRAPE COMPLETE *****\n")
+
+# Summary
+print("\n\n")
+print("************* SCRAPE COMPLETE *************\n")
+print("Listings scraped: " + str(listingData.shape[0]) + " out of " + str(listings_count) + " (" + str(round(listingData.shape[0] / listings_count * 100, 2)) + "%)" )
+valuesScraped = np.sum(listingData.count())
+valuesMax = (listings_count * listingData.shape[1])
+print("Values scraped: " + str(valuesScraped) + " out of " + str(valuesMax) + " (" + str(round(valuesScraped / valuesMax * 100, 2)) + "%)\n" )
+print("*******************************************\n\n")
 
 # Done
 driver.quit()
