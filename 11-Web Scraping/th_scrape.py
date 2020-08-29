@@ -76,8 +76,8 @@ def scrapeSearchListingLinks(searchCriteriaDict = {'page':'1'}):
     # Loop through all pages of the search and collect links to listings
     listingLinksTemp = []
     pageLinks = []
-    # for i in range(1, page_count+1):
-    for i in range(7, 8):        ###########################    FOR TESTING
+    for i in range(1, page_count+1):
+    # for i in range(7, 8):        ###########################    FOR TESTING
         page = i
         print("*** Scraping links from page " + str(page))
         searchCriteriaDict['page'] = i
@@ -118,9 +118,8 @@ def scrapeListingData(links):
                 location = driver.find_element_by_class_name('listing-location-string').text
                 listingDataTemp['Location'] = pd.Series(str(location).strip(), dtype='string')
                 locationSplit = str(location).split(", ")
-                city = pd.Series([locationSplit[0]], dtype='string')
-                state = pd.Series(locationSplit[1], dtype='string')
-                country = pd.Series(locationSplit[2], dtype='string')
+                for location in locationSplit:
+                    location = location.strip() # remove leading and trailing whitespace
                 listingDataTemp['City'] = pd.Series([locationSplit[0]], dtype='string')
                 listingDataTemp['State'] = pd.Series([locationSplit[1]], dtype='string')
                 listingDataTemp['Country'] = pd.Series([locationSplit[2]], dtype='string')
