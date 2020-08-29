@@ -45,13 +45,17 @@ def loadPage(url):
 
 def getListingsCount(url):
     print("*** Scraping listings count...")
-    loadPage(url)
-    results_count = driver.find_element_by_class_name('results-count')
-    results_count = results_count.text
-    results_count = results_count.split(' ')
-    results_count = int(results_count[0])
-    print("Listings total = " + str(results_count))
-    return results_count
+    for i in range(1, 6):
+        try:
+            loadPage(url)
+            results_count = driver.find_element_by_class_name('results-count')
+            results_count = results_count.text
+            results_count = results_count.split(' ')
+            results_count = int(results_count[0])
+            print("Listings total = " + str(results_count))
+            return results_count
+        except:
+            print("Couldn't get count of listings.  Trying again.")
 
 def getPageCount(listingsCount):
     print("*** Calculating page count...")
@@ -72,8 +76,8 @@ def scrapeSearchListingLinks(searchCriteriaDict = {'page':'1'}):
     # Loop through all pages of the search and collect links to listings
     listingLinksTemp = []
     pageLinks = []
-    for i in range(1, page_count+1):
-    # for i in range(7, 9):        ###########    FOR TESTING
+    # for i in range(1, page_count+1):
+    for i in range(7, 8):        ###########################    FOR TESTING
         page = i
         print("*** Scraping links from page " + str(page))
         searchCriteriaDict['page'] = i
@@ -109,7 +113,34 @@ def scrapeListingData(links):
                 name = driver.find_element_by_class_name('listing-right-title').text
                 listingDataTemp['Name'] = pd.Series(name)
                 listingDataTemp['Price'] = driver.find_element_by_class_name('listing-price').text
-                listingDataTemp['Location'] = driver.find_element_by_class_name('listing-location-string').text
+
+                # Get location and split into City, State, Country
+                location = driver.find_element_by_class_name('listing-location-string').text
+                print("Location = " + location)                ###########################  TESTING
+                print("Location type = " + str(type(location)))                ###########################  TESTING
+
+                listingDataTemp['Location'] = str(location).strip()
+                locationSplit = str(location).split(", ")
+                print("Location Split type = " + str(type(locationSplit)))                ###########################  TESTING
+                for location in locationSplit:
+                    print("-Loc: " + location)                ###########################  TESTING
+                    print("-Type: " + str(type(location)))                ###########################  TESTING
+                print('City no str: ' + locationSplit[0])                ###########################  TESTING
+                print('State no str: ' + locationSplit[1])                  ###########################  TESTING
+                print('Country no str: ' + locationSplit[2])                 ###########################  TESTING
+                city = locationSplit[0]
+                state = locationSplit[1]
+                country = locationSplit[2]
+                print('City var: ' + city)               ###########################  TESTING
+                print('State var: ' + state)                  ###########################  TESTING
+                print('Country var: ' + country)                 ###########################  TESTING
+                listingDataTemp['City'] = locationSplit[0]
+                listingDataTemp['State'] = str(locationSplit[1])
+                listingDataTemp['Country'] = str(locationSplit[2]).strip()
+                print('City after: ' + listingDataTemp['City'])                ###########################  TESTING
+                print('State after: ' + listingDataTemp['State'])                  ###########################  TESTING
+                print('Country after: ' + listingDataTemp['Country'])                 ###########################  TESTING
+
                 listingDetailsStack = driver.find_element_by_class_name('listing-details-stack') # the stack that holds type, foundation, misc
                 listingDetailsValues = listingDetailsStack.find_elements_by_tag_name('h4') # values of type, foundation, misc
                 listingDataTemp['Type'] = listingDetailsValues[0].text
@@ -125,7 +156,7 @@ def scrapeListingData(links):
                         listingDataTemp[key] = value
                 break
             except:
-                print("Couldn't scrape listing data, trying again. Attempt " + str(i) + "/5")
+                print("Couldn't scrape listing data, trying again. Attempt " + str(i) + " of 5")
         listingDataTemp['Link'] = link
         # Add individual listing to DataFrame of listings
         if (listingDataCombined.empty):
@@ -181,7 +212,8 @@ def isolateValuesInSeries(seriesOfStrings):
 
 def validateColumns(df):
     print("*** Validating columns...")
-    correctColumns = ['Name', 'Price', 'Location', 'Type', 'Foundation', 'Misc', 'Bedrooms', 'Lofts', 'Bathrooms', 'Size', 'Length', 'Width', 'Days on site', 'Number of views', 'Times dreamlisted', 'Link']
+    correctColumns = ['Name', 'Price', 'Location', 'City', 'State', 'Country', 'Type', 'Foundation', 'Misc', 'Bedrooms', 'Lofts', 'Bathrooms', 
+                        'Size', 'Length', 'Width', 'Days on site', 'Number of views', 'Times dreamlisted', 'Link']
     for col in correctColumns:
         if col not in df.columns:
             print("- Found a missing column: " + col + ".  Adding it now")

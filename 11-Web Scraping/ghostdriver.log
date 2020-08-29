@@ -1,293 +1,167 @@
-[INFO  - 2020-08-29T04:13:56.520Z] GhostDriver - Main - running on port 62810
-[INFO  - 2020-08-29T04:13:57.012Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
-[INFO  - 2020-08-29T04:13:57.012Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.customHeaders:  - {}
-[INFO  - 2020-08-29T04:13:57.012Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"mac-unknown-64bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
-[INFO  - 2020-08-29T04:13:57.012Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 0ecc6900-e9ae-11ea-88b9-df8e99c97768
-[ERROR - 2020-08-29T04:14:00.677Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
+[INFO  - 2020-08-29T06:44:51.278Z] GhostDriver - Main - running on port 60864
+[INFO  - 2020-08-29T06:44:51.741Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2020-08-29T06:44:51.741Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.customHeaders:  - {}
+[INFO  - 2020-08-29T06:44:51.741Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"mac-unknown-64bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2020-08-29T06:44:51.742Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e
+[ERROR - 2020-08-29T06:44:55.317Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
 (missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:00.677Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
+[ERROR - 2020-08-29T06:44:55.317Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - stack:
   (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:02.177Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
+[ERROR - 2020-08-29T06:44:55.879Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - msg: undefined
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-08-29T06:44:55.879Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - stack:
+  handleError (https://tinyhouselistings.com/assets/tinyhouselistings-ember-a900e7a565e34e11db2402b00fe7701d.js:364)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-08-29T06:44:56.480Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
 (missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:02.177Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
+[ERROR - 2020-08-29T06:44:56.480Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - stack:
   (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:03.035Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
+[ERROR - 2020-08-29T06:44:56.665Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - msg: undefined
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-08-29T06:44:56.665Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - stack:
+  handleError (https://tinyhouselistings.com/assets/tinyhouselistings-ember-a900e7a565e34e11db2402b00fe7701d.js:364)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-08-29T06:44:57.441Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
 (missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:03.035Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
+[ERROR - 2020-08-29T06:44:57.441Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - stack:
   (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:03.891Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
+[ERROR - 2020-08-29T06:44:57.624Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598683497607
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-08-29T06:44:59.005Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
 (missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:03.891Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
+[ERROR - 2020-08-29T06:44:59.005Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - stack:
   (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:04.003Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674443959
+[ERROR - 2020-08-29T06:44:59.008Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598683498983
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:05.469Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674445447
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:05.871Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
+[ERROR - 2020-08-29T06:45:00.306Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
 (missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:05.871Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
+[ERROR - 2020-08-29T06:45:00.306Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - stack:
   (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:06.734Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
+[ERROR - 2020-08-29T06:45:00.484Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598683500472
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-08-29T06:45:01.996Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598683501977
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-08-29T06:45:02.451Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
 (missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:06.734Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
+[ERROR - 2020-08-29T06:45:02.451Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - stack:
   (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:06.740Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674446731
+[ERROR - 2020-08-29T06:45:03.295Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598683503282
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:08.222Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
+[ERROR - 2020-08-29T06:45:03.433Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
 (missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:08.222Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
+[ERROR - 2020-08-29T06:45:03.433Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - stack:
   (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:08.289Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674448256
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:09.691Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
+[ERROR - 2020-08-29T06:45:04.302Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
 (missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:09.691Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
+[ERROR - 2020-08-29T06:45:04.302Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - stack:
   (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:09.694Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674449637
+[ERROR - 2020-08-29T06:45:04.362Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598683504324
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:11.143Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
+[ERROR - 2020-08-29T06:45:05.709Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
 (missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:11.143Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
+[ERROR - 2020-08-29T06:45:05.709Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - stack:
   (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:11.147Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674451115
+[ERROR - 2020-08-29T06:45:05.894Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598683505871
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:12.585Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
+[ERROR - 2020-08-29T06:45:07.438Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
 (missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:12.585Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
+[ERROR - 2020-08-29T06:45:07.438Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - stack:
   (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:12.603Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674452581
+[ERROR - 2020-08-29T06:45:07.441Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598683507409
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:14.048Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674454020
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:14.524Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
+[ERROR - 2020-08-29T06:45:09.074Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
 (missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:14.524Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
+[ERROR - 2020-08-29T06:45:09.074Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - stack:
   (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:15.710Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
+[ERROR - 2020-08-29T06:45:09.197Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598683509179
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-08-29T06:45:10.556Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
 (missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:15.710Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
+[ERROR - 2020-08-29T06:45:10.556Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - stack:
   (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:15.820Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674455792
+[ERROR - 2020-08-29T06:45:10.745Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598683510718
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:17.328Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
+[ERROR - 2020-08-29T06:45:12.603Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
 (missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:17.328Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
+[ERROR - 2020-08-29T06:45:12.603Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - stack:
   (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:17.331Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674457258
+[ERROR - 2020-08-29T06:45:12.606Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598683512601
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:18.862Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
+[ERROR - 2020-08-29T06:45:13.942Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598683513900
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2020-08-29T06:45:14.417Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
 (missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
 
   phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:18.862Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
-  (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:19.075Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674458972
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:20.190Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674460174
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:20.795Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
-(missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:20.795Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
-  (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:21.745Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674461716
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:21.974Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
-(missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:21.974Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
-  (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:23.088Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
-(missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:23.088Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
-  (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:23.090Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674463055
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:24.480Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
-(missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:24.480Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
-  (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:24.558Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674464540
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:26.042Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
-(missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:26.042Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
-  (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:26.153Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674466128
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:27.829Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
-(missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:27.829Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
-  (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:28.047Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674468024
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:29.454Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
-(missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:29.454Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
-  (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:29.604Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674469527
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:31.349Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
-(missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:31.349Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
-  (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:31.353Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674471306
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:32.882Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
-(missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:32.882Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
-  (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:33.147Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674473123
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:34.969Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
-(missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:34.969Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
-  (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:35.402Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674475382
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:36.938Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
-(missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:36.938Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
-  (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:36.940Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674476890
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:38.527Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674478477
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:39.082Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
-(missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:39.082Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
-  (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:40.056Z] WebElementLocator - _handleLocateCommand - Element(s) NOT Found: GAVE UP. Search Stop Time: 1598674480039
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:40.699Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - msg: Unhandled promise rejection Error: Loading chunk vendors~web_widget failed.
-(missing: https://static.zdassets.com/web_widget/latest/vendors~web_widget.fbaa3b98f997b533cef2.chunk.js)
-
-  phantomjs://platform/console++.js:263 in error
-[ERROR - 2020-08-29T04:14:40.700Z] Session [0ecc6900-e9ae-11ea-88b9-df8e99c97768] - page.onError - stack:
+[ERROR - 2020-08-29T06:45:14.417Z] Session [23d68fa0-e9c3-11ea-ac9b-8588fd7cca8e] - page.onError - stack:
   (anonymous function) (https://static.zdassets.com/web_widget/latest/preload.1c8ba4eedb07b9300773.js:1)
 
   phantomjs://platform/console++.js:263 in error
