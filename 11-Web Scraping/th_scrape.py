@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 import math
+import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -77,7 +78,7 @@ def scrapeSearchListingLinks(searchCriteriaDict = {'page':'1'}):
     listingLinksTemp = []
     pageLinks = []
     for i in range(1, page_count+1):
-    # for i in range(7, 8):        ###########################    FOR TESTING
+    # for i in range(7, 8):        #####################################################    FOR TESTING
         page = i
         print("*** Scraping links from page " + str(page))
         searchCriteriaDict['page'] = i
@@ -270,12 +271,14 @@ searchOptionsDict = {
     'page': '1'
 }
 
-
 # ***** RUN SCRIPTS *****
+time_start = time.time()
 print("\n\n***** 1. CREATING A CUSTOMIZED SEARCH URL *****\n")
 # TODO: Add ability to select search type outside of script editing
-# search_url = createNewURL(searchOptionsDict)   # Scrape data based on custom search criteria
-# OR
+# UNCOMMENT ONE OF THE TWO OPTIONS BELOW TO EITHER RUN A FULL OR A FILTERED SCRAPE
+# OPTION 1:
+# search_url = createNewURL(searchOptionsDict)   # Scrape data based on custom search criteria above (or from input)
+# OR OPTION 2:
 search_url = createNewURL()                    # Scrape data from ALL listings
 
 # Get listing and page counts
@@ -304,9 +307,18 @@ print("************* SCRAPE COMPLETE *************\n")
 print("Listings scraped: " + str(listingData.shape[0]) + " out of " + str(listings_count) + " (" + str(round(listingData.shape[0] / listings_count * 100, 2)) + "%)" )
 valuesScraped = np.sum(listingData.count())
 valuesMax = (listings_count * listingData.shape[1])
-print("Values scraped*: " + str(valuesScraped) + " out of " + str(valuesMax) + " (" + str(round(valuesScraped / valuesMax * 100, 2)) + "%)\n" )
+print("Values scraped*: " + str(valuesScraped) + " out of " + str(valuesMax) + " (" + str(round(valuesScraped / valuesMax * 100, 2)) + "%)" )
 print("   *Excludes blank or null values")
-print("*******************************************\n\n")
+time_end = time.time()
+seconds = round(time_end - time_start,2)
+minutes = round(seconds / 60, 2)
+if (minutes > 1):
+    print("\nTotal minutes to run script: " + str(minutes))
+else:
+    print("\nTotal seconds to run script: " + str(seconds))
+seconds_per_listing = round(seconds / listingData.shape[0], 2)
+print("Average seconds per listing: " + str(seconds_per_listing))
+print("\n*******************************************\n\n")
 
 # Done
 driver.quit()
