@@ -277,9 +277,9 @@ print("\n\n***** 1. CREATING A CUSTOMIZED SEARCH URL *****\n")
 # TODO: Add ability to select search type outside of script editing
 # UNCOMMENT ONE OF THE TWO OPTIONS BELOW TO EITHER RUN A FULL OR A FILTERED SCRAPE
 # OPTION 1:
-# search_url = createNewURL(searchOptionsDict)   # Scrape data based on custom search criteria above (or from input)
+search_url = createNewURL(searchOptionsDict)   # Scrape data based on custom search criteria above (or from input)
 # OR OPTION 2:
-search_url = createNewURL()                    # Scrape data from ALL listings
+# search_url = createNewURL()                    # Scrape data from ALL listings
 
 # Get listing and page counts
 print("\n\n***** 2. GETTING ORIGINAL LISTING COUNT AND CALCULATING PAGE COUNT *****\n")
